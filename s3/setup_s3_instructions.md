@@ -53,12 +53,34 @@ aws iam attach-user-policy \
 aws iam create-access-key --user-name inspect-logs-user
 ```
 
-Then set the shown AWS credentials as environment variables:
+Then configure the AWS credentials using the standard AWS credentials file:
 ```bash
-# Save to .bashrc
-export AWS_ACCESS_KEY_ID="AKIA..."
-export AWS_SECRET_ACCESS_KEY="..."
-export AWS_DEFAULT_REGION="us-east-1"
+# Create AWS credentials directory
+mkdir -p ~/.aws
+
+# Create credentials file (replace with your actual keys)
+cat > ~/.aws/credentials << EOF
+[default]
+aws_access_key_id = AKIA...
+aws_secret_access_key = ...
+EOF
+
+# Create config file for region
+cat > ~/.aws/config << EOF
+[default]
+region = us-east-1
+EOF
+
+# Set proper permissions
+chmod 600 ~/.aws/credentials
+chmod 600 ~/.aws/config
+
+# Copy credentials to root user (needed for Flask server)
+sudo mkdir -p /root/.aws
+sudo cp ~/.aws/credentials /root/.aws/
+sudo cp ~/.aws/config /root/.aws/
+sudo chmod 600 /root/.aws/credentials
+sudo chmod 600 /root/.aws/config
 ```
 
 ## Step 3: Install and Configure Mountpoint for S3
@@ -118,10 +140,23 @@ Your `start.sh` script has been updated to automatically mount the S3 bucket bef
 
 1. **Check AWS credentials**:
 ```bash
+# Test as ec2-user
 aws sts get-caller-identity
+
+# Test as root (needed for Flask server)
+sudo aws sts get-caller-identity
 ```
 
-2. **Check bucket access**:
+2. **Verify credentials files exist**:
+```bash
+# Check ec2-user credentials
+ls -la ~/.aws/
+
+# Check root credentials
+sudo ls -la /root/.aws/
+```
+
+3. **Check bucket access**:
 ```bash
 aws s3 ls s3://inspect-logs-bucket
 ```
