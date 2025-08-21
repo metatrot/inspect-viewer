@@ -76,6 +76,8 @@ mount-s3 \
     --uid "$(id -u)" \
     --gid "$(id -g)" \
     --allow-other \
+    --cache /home/ec2-user/s3-cache \
+    --max-threads 16 \
     "$S3_BUCKET_NAME" \
     "$MOUNT_DIR"
 
