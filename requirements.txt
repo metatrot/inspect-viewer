@@ -1,4 +1,6 @@
-aiobotocore==2.23.0
+aioboto3==15.1.0
+aiobotocore==2.24.0
+aiofiles==24.1.0
 aiohappyeyeballs==2.6.1
 aiohttp==3.12.13
 aioitertools==0.12.0
@@ -8,7 +10,8 @@ anyio==4.9.0
 attrs==25.3.0
 beautifulsoup4==4.13.4
 blinker==1.9.0
-botocore==1.38.27
+boto3==1.39.11
+botocore==1.39.11
 certifi==2025.7.9
 click==8.1.8
 debugpy==1.8.14
@@ -21,7 +24,7 @@ httpcore==1.0.9
 httpx==0.28.1
 idna==3.10
 ijson==3.4.0
-inspect_ai==0.3.112
+inspect_ai==0.3.132
 itsdangerous==2.2.0
 Jinja2==3.1.6
 jmespath==1.0.1
@@ -55,6 +58,7 @@ referencing==0.36.2
 rich==13.9.4
 rpds-py==0.26.0
 s3fs==2025.3.0
+s3transfer==0.13.1
 semver==3.0.4
 shortuuid==1.0.13
 six==1.17.0
